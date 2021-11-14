@@ -1,7 +1,7 @@
 @if(Auth()->user()->isAbleTo([Config::get('log-manager.permissions.menu.main')]))
     <li class="treeview {{ isActive( ['log.index'], 'is-expanded' ) }}">
         <a class="app-menu__item" href="#" data-toggle="treeview">
-            <i class="app-menu__icon fa fa-users"></i>
+            <i class="app-menu__icon fa fa-history"></i>
             <span class="app-menu__label">گزارش ها</span>
             <i class="treeview-indicator fa fa-angle-left"></i>
         </a>

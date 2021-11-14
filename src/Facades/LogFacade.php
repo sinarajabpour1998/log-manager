@@ -8,7 +8,7 @@ use Modules\Shop\Facades\BaseFacade;
  *
  * @method static array getAllLogs()
  * @method static array getLogsWithFilter($request)
- * @method static array getUsers($request, $type = null)
+ * @method static array getUsers($request)
  *
  * @see \Sinarajabpour1998\LogManager\Repositories\LogRepository
  */

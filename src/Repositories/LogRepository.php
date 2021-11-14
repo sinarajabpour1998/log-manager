@@ -55,12 +55,9 @@ class LogRepository
         return json_encode($output);
     }
 
-    protected function findUser($search, $type = null)
+    protected function findUser($search)
     {
         $users = User::query();
-        if (!is_null($type) && $type == "admins"){
-            $users = $users->whereRoleIs('admin')->orWhereRoleIs('programmer');
-        }
         $users->where(function ($query) use ($search){
             $query->whereRaw("concat_ws('',first_name,last_name) like ?", ['%' . $search . '%']);
             $query->orWhere('email_key', '=', [ makeHash($search) ]);

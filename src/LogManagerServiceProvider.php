@@ -5,6 +5,7 @@ namespace Sinarajabpour1998\LogManager;
 use Illuminate\Support\ServiceProvider;
 use Sinarajabpour1998\LogManager\Facades\LogFacade;
 use Sinarajabpour1998\LogManager\Repositories\LogRepository;
+use Sinarajabpour1998\LogManager\View\Components\LogMenu;
 
 class LogManagerServiceProvider extends ServiceProvider
 {
@@ -34,5 +35,8 @@ class LogManagerServiceProvider extends ServiceProvider
             __DIR__.'/config/log-manager.php' =>config_path('log-manager.php'),
             __DIR__.'/views/' => resource_path('views/vendor/LogManager'),
         ], 'log-manager');
+        $this->loadViewComponentsAs("", [
+            LogMenu::class
+        ]);
     }
 }
