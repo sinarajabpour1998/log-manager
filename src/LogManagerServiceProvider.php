@@ -3,6 +3,8 @@
 namespace Sinarajabpour1998\LogManager;
 
 use Illuminate\Support\ServiceProvider;
+use Sinarajabpour1998\LogManager\Facades\LogFacade;
+use Sinarajabpour1998\LogManager\Repositories\LogRepository;
 
 class LogManagerServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,7 @@ class LogManagerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
+        LogFacade::shouldProxyTo(LogRepository::class);
     }
 
 

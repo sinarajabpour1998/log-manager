@@ -8,6 +8,7 @@ return [
         'main' => 'permission:log-manager',
         'menu' => [
             'main' => 'log-manager',
+            'all-logs' => 'log-manager-all'
         ]
     ],
     'encryption' => [
