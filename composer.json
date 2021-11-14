@@ -1,0 +1,29 @@
+{
+    "name": "sinarajabpour1998/log-manager",
+    "type": "laravel-package",
+    "description": "This package provides log manager in laravel apps.",
+    "license": "MIT",
+    "homepage": "https://github.com/sinarajabpour1998/log-manager",
+    "authors": [
+        {
+            "name": "Sina Rajabpour",
+            "email": "sina.rajabpour@outlook.com"
+        }
+    ],
+    "require": {
+        "php": "7.1.*|7.2.*|7.3.*|7.4.*|8.*",
+        "laravel/framework": "7.*|8.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sinarajabpour1998\\LogManager\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Sinarajabpour1998\\LogManager\\LogManagerServiceProvider"
+            ]
+        }
+    }
+}
