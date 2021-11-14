@@ -12,15 +12,6 @@ packagist : [log-manager](https://packagist.org/packages/sinarajabpour1998/log-m
 
 ## Usage
 
-* Change the user modal namespace to laratrust config 
-  (located in `/config/laratrust.php`) in `user_models` section :
-
-```php
-'user_models' => [
-    'users' => 'App\Models\User',
-],
-```
-
 * Publish blade files
 
 ```bash
