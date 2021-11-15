@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Log extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $fillable = ["user_id", "ip", "type", "description"];
+    protected $fillable = ["user_id", "ip", "os", "browser", "type", "description"];
     protected $appends = ["type_label"];
 
     public function user()
@@ -20,13 +20,11 @@ class Log extends Model
 
     public function getTypeLabelAttribute()
     {
-        switch ($this->type) {
-            case 'login':
-                return 'ورود';
-            case 'registration':
-                return 'ثبت نام';
-            case 'default':
-                return 'نامشخص';
+        $valid_types = config('log-manager.log_types');
+        if (array_key_exists($this->type, $valid_types)){
+            return $valid_types[$this->type];
+        }else{
+            return null;
         }
     }
 }

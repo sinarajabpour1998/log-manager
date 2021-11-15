@@ -73,6 +73,8 @@
                                             <th>شناسه کاربر</th>
                                             <th>نوع گزارش</th>
                                             <th>آی پی</th>
+                                            <th>سیستم عامل</th>
+                                            <th>مرورگر</th>
                                             <th>توضیحات</th>
                                             <th>تاریخ</th>
                                         </tr>
@@ -97,7 +99,13 @@
                                                     {{ $log->ip }}
                                                 </td>
                                                 <td>
-                                                    {{ $log->description }}
+                                                    {{ $log->os }}
+                                                </td>
+                                                <td>
+                                                    {{ $log->browser }}
+                                                </td>
+                                                <td>
+                                                    {{ !is_null($log->description) ? $log->description : "-" }}
                                                 </td>
                                                 <td>
                                                     {{ digitsToEastern(jdate($log->created_at)->format('H:i:s - Y/m/d')) }}

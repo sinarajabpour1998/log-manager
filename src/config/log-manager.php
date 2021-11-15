@@ -11,8 +11,9 @@ return [
             'all-logs' => 'log-manager-all'
         ]
     ],
-    'encryption' => [
-        'mobile_encryption' => true,
-        'email_encryption' => true,
+    // set log types, each type has a default description ex. "type" => "description"
+    "log_types" => [
+        "login" => "ورود به سایت",
+        "registration" => "ثبت نام در سایت"
     ]
 ];
