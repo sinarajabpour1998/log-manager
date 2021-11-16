@@ -63,7 +63,7 @@
                                     @endslot
                                     @slot('tbody')
                                         @forelse ($error_logs as $error_log)
-                                            <tr>
+                                            <tr class="{{ $error_log->seen == 0 ? 'unseen-order-row' : '' }}">
                                                 <td>
                                                     {{$error_log->getKey()}}
                                                 </td>

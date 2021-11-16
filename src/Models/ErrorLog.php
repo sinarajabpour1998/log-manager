@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class ErrorLog extends Model
 {
     use HasFactory;
-    protected $fillable = ["user_id", "ip", "os", "browser", "error_message", "error_code", "target_file", "target_line", "log_trace"];
+    protected $fillable = ["user_id", "ip", "os", "browser", "error_message", "error_code", "target_file", "target_line", "seen"];
 
     public function user()
     {

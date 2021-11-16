@@ -43,11 +43,15 @@ class LogController extends Controller
     public function showErrorLog(ErrorLog $log)
     {
         $errorLog = $log;
+        if ($errorLog->seen == 0){
+            $errorLog->update([
+                'seen' => 1
+            ]);
+        }
         $errorLog->error_message = base64_decode(decryptString($errorLog->error_message));
         $errorLog->error_code = base64_decode(decryptString($errorLog->error_code));
         $errorLog->target_file = base64_decode(decryptString($errorLog->target_file));
         $errorLog->target_line = base64_decode(decryptString($errorLog->target_line));
-        $errorLog->log_trace = json_decode(decryptString($errorLog->log_trace));
         return view('vendor.LogManager.errorLogs.show', [
             'errorLog' => $errorLog
         ]);

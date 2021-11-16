@@ -23,7 +23,7 @@ class CreateErrorLogsTable extends Migration
             $table->string("error_code");
             $table->text("target_file");
             $table->text("target_line");
-            $table->text("log_trace");
+            $table->tinyInteger("seen")->default(0);
             $table->timestamps();
         });
     }

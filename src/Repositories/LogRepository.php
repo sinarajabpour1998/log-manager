@@ -40,7 +40,7 @@ class LogRepository
     public function getErrorLogsWithFilter($request)
     {
         $show_filter = 'false';
-        $error_logs = ErrorLog::query()->selectRaw("id,user_id,ip,os,browser");
+        $error_logs = ErrorLog::query()->selectRaw("id,user_id,ip,os,browser,seen");
         if ($request->has('user_id') && $request->user_id != 0){
             $error_logs = $error_logs->whereHas('user', function ($query) use ($request){
                 $query->where('id', '=', $request->user_id);
@@ -133,7 +133,7 @@ class LogRepository
             "error_code" => encryptString(base64_encode($exception->getCode())),
             "target_file" => encryptString(base64_encode($exception->getFile())),
             "target_line" => encryptString(base64_encode($exception->getLine())),
-            "log_trace" => encryptString(json_encode($exception->getTrace()[0]))
+            "seen" => 0
         ]);
         return json_encode([
             "status" => 200,
@@ -204,5 +204,10 @@ class LogRepository
         }
 
         return $browser;
+    }
+
+    public function getErrorLogCount()
+    {
+        return ErrorLog::query()->where('seen', '=', 0)->count();
     }
 }

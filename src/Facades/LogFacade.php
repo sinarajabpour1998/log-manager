@@ -12,6 +12,7 @@ use Modules\Shop\Facades\BaseFacade;
  * @method static array getUsers($request)
  * @method static array generateLog($type, $description = null)
  * @method static array generateErrorLog($exception)
+ * @method static array getErrorLogCount()
  *
  * @see \Sinarajabpour1998\LogManager\Repositories\LogRepository
  */
