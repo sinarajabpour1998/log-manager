@@ -1,15 +1,15 @@
-@component('panel.layouts.component', ['title' => 'گزارش ها'])
+@component('panel.layouts.component', ['title' => 'گزارش خطاها'])
 
     @slot('style')
     @endslot
 
     @slot('subject')
-        <h1><i class="fa fa-users"></i> گزارش ها </h1>
-        <p>مدیریت لیست گزارش ها.</p>
+        <h1><i class="fa fa-users"></i> گزارش خطاها </h1>
+        <p>مدیریت لیست گزارش خطاها.</p>
     @endslot
 
     @slot('breadcrumb')
-        <li class="breadcrumb-item">گزارش ها</li>
+        <li class="breadcrumb-item">گزارش خطاها</li>
         <li class="breadcrumb-item">
             <a href="{{ route('panel') }}">
                 <i class="fa fa-home fa-lg"></i>
@@ -22,7 +22,7 @@
             <div class="col-md-12">
                 @component('components.accordion')
                     @slot('cards')
-                        @component('components.collapse-card', ['id' => 'log-index', 'show' => 'show', 'title' => 'لیست گزارش ها'])
+                        @component('components.collapse-card', ['id' => 'error-log-index', 'show' => 'show', 'title' => 'لیست گزارش خطاها'])
                             @slot('body')
                                 @component('components.collapse-search', ['show' => $show_filter])
                                     @slot('form')
@@ -36,22 +36,6 @@
                                                             @if(request()->has('user_id'))
                                                                 <option value="{{ request('creator_id') }}" selected>{{ $user->first_name . ' ' . $user->last_name . ' - ' . decryptString($user->mobile) }}</option>
                                                             @endif
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="type">نوع گزارش</label>
-                                                        <select name="type" id="type"
-                                                                class="form-control select2">
-                                                            <option value="">
-                                                                انتخاب کنید...
-                                                            </option>
-                                                            @foreach($log_types as $key => $value)
-                                                                <option value="{{ $key }}" {{ request('type') == $key ? 'selected' : '' }}>
-                                                                    {{ $value }}
-                                                                </option>
-                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
@@ -70,44 +54,47 @@
                                         <tr>
                                             <th>شناسه</th>
                                             <th>شناسه کاربر</th>
-                                            <th>نوع گزارش</th>
                                             <th>آی پی</th>
                                             <th>سیستم عامل</th>
                                             <th>مرورگر</th>
-                                            <th>توضیحات</th>
                                             <th>تاریخ</th>
+                                            <th>عملیات</th>
                                         </tr>
                                     @endslot
                                     @slot('tbody')
-                                        @forelse ($logs as $log)
+                                        @forelse ($error_logs as $error_log)
                                             <tr>
                                                 <td>
-                                                    {{$log->getKey()}}
+                                                    {{$error_log->getKey()}}
                                                 </td>
                                                 <td>
-                                                    @if($log->user_id != 0)
-                                                        <a href="{{ route('users.edit', $log->user->id) }}" target="_blank">{{ $log->user->id }}</a>
+                                                    @if($error_log->user_id != 0)
+                                                        <a href="{{ route('users.edit', $error_log->user->id) }}" target="_blank">{{ $error_log->user->id }}</a>
                                                     @else
                                                         نامشخص
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    {{ $log->type_label }}
+                                                    {{ $error_log->ip }}
                                                 </td>
                                                 <td>
-                                                    {{ $log->ip }}
+                                                    {{ $error_log->os }}
                                                 </td>
                                                 <td>
-                                                    {{ $log->os }}
+                                                    {{ $error_log->browser }}
                                                 </td>
                                                 <td>
-                                                    {{ $log->browser }}
+                                                    {{ digitsToEastern(jdate($error_log->created_at)->format('H:i:s - Y/m/d')) }}
                                                 </td>
                                                 <td>
-                                                    {{ !is_null($log->description) ? $log->description : "-" }}
-                                                </td>
-                                                <td>
-                                                    {{ digitsToEastern(jdate($log->created_at)->format('H:i:s - Y/m/d')) }}
+                                                    <a href="{{route('log-manager.error.log.show', $error_log)}}"
+                                                       class="btn btn-sm btn-primary m-1">
+                                                        مشاهده جزئیات
+                                                    </a>
+                                                    <a href="#" data-id="{{$error_log->id}}"
+                                                       class="btn btn-sm btn-danger m-1 destroy_product">
+                                                        حذف
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @empty
@@ -118,7 +105,7 @@
                                     @endslot
                                 @endcomponent
 
-                                {{ $logs->withQueryString()->links() }}
+                                {{ $error_logs->withQueryString()->links() }}
                             @endslot
                         @endcomponent
                     @endslot

@@ -6,12 +6,16 @@ return [
     // all permissions (except for menu) must be start with [permission:] keyword
     'permissions' => [
         'main' => 'permission:log-manager',
+        'all-logs' => 'permission:log-manager-all',
+        'error-logs' => 'permission:log-manager-errors',
+        'show-error-log' => 'permission:log-manager-show-error',
         'menu' => [
             'main' => 'log-manager',
-            'all-logs' => 'log-manager-all'
+            'all-logs' => 'log-manager-all',
+            'error-logs' => 'log-manager-errors'
         ]
     ],
-    // set log types, each type has a default description ex. "type" => "description"
+    // set log types, each type has a default title ex. "type" => "description"
     "log_types" => [
         "login" => "ورود به سایت",
         "registration" => "ثبت نام در سایت"

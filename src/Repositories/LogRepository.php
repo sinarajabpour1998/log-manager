@@ -37,6 +37,23 @@ class LogRepository
         ];
     }
 
+    public function getErrorLogsWithFilter($request)
+    {
+        $show_filter = 'false';
+        $error_logs = ErrorLog::query()->selectRaw("id,user_id,ip,os,browser");
+        if ($request->has('user_id') && $request->user_id != 0){
+            $error_logs = $error_logs->whereHas('user', function ($query) use ($request){
+                $query->where('id', '=', $request->user_id);
+            });
+            $show_filter = 'true';
+        }
+        $error_logs = $error_logs->orderByDesc('id')->paginate();
+        return (object) [
+            'error_logs' => $error_logs,
+            'show_filter' => $show_filter
+        ];
+    }
+
     public function getUsers($request, $type = null)
     {
         $users = array();

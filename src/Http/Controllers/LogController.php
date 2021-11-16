@@ -20,6 +20,21 @@ class LogController extends Controller
         return view('vendor.LogManager.logs.index', [
             'logs' => $logs->logs,
             'show_filter' => $logs->show_filter,
+            'user' => $user,
+            'log_types' => config('log-manager.log_types')
+        ]);
+    }
+
+    public function errorLogIndex(Request $request)
+    {
+        $user = null;
+        $error_logs = LogFacade::getErrorLogsWithFilter($request);
+        if (!is_null(request('user_id'))){
+            $user = User::query()->findOrFail(request('user_id'));
+        }
+        return view('vendor.LogManager.errorLogs.index', [
+            'error_logs' => $error_logs->error_logs,
+            'show_filter' => $error_logs->show_filter,
             'user' => $user
         ]);
     }

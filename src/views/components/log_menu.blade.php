@@ -1,5 +1,5 @@
 @if(Auth()->user()->isAbleTo([Config::get('log-manager.permissions.menu.main')]))
-    <li class="treeview {{ isActive( ['log.index'], 'is-expanded' ) }}">
+    <li class="treeview {{ isActive( ['log-manager.index', "log-manager.error.log.index"], 'is-expanded' ) }}">
         <a class="app-menu__item" href="#" data-toggle="treeview">
             <i class="app-menu__icon fa fa-history"></i>
             <span class="app-menu__label">گزارش ها</span>
@@ -10,6 +10,13 @@
                 <li>
                     <a class="treeview-item pl-3 {{ isActive('log-manager.index') }}" href="{{ route('log-manager.index') }}">
                         <i class="icon fa fa-circle-o"></i>همه گزارش ها
+                    </a>
+                </li>
+            @endif
+                @if(Auth()->user()->isAbleTo([Config::get('log-manager.permissions.menu.error-logs')]))
+                <li>
+                    <a class="treeview-item pl-3 {{ isActive('log-manager.error.log.index') }}" href="{{ route('log-manager.error.log.index') }}">
+                        <i class="icon fa fa-circle-o"></i>گزارش خطاها
                     </a>
                 </li>
             @endif
