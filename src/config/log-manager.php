@@ -9,6 +9,7 @@ return [
         'all-logs' => 'permission:log-manager-all',
         'error-logs' => 'permission:log-manager-errors',
         'show-error-log' => 'permission:log-manager-show-error',
+        'delete-error-log' => 'permission:log-manager-delete-error',
         'menu' => [
             'main' => 'log-manager',
             'all-logs' => 'log-manager-all',

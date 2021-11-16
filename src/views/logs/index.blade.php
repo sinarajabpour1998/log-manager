@@ -85,7 +85,7 @@
                                                     {{$log->getKey()}}
                                                 </td>
                                                 <td>
-                                                    @if($log->user_id != 0)
+                                                    @if($log->user_id != 0 && !is_null($log->user))
                                                         <a href="{{ route('users.edit', $log->user->id) }}" target="_blank">{{ $log->user->id }}</a>
                                                     @else
                                                         نامشخص

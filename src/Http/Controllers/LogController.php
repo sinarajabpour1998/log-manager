@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Sinarajabpour1998\LogManager\Facades\LogFacade;
+use Sinarajabpour1998\LogManager\Models\ErrorLog;
 use Sinarajabpour1998\LogManager\Models\Log;
 
 class LogController extends Controller
@@ -36,6 +37,27 @@ class LogController extends Controller
             'error_logs' => $error_logs->error_logs,
             'show_filter' => $error_logs->show_filter,
             'user' => $user
+        ]);
+    }
+
+    public function showErrorLog(ErrorLog $log)
+    {
+        $errorLog = $log;
+        $errorLog->error_message = base64_decode(decryptString($errorLog->error_message));
+        $errorLog->error_code = base64_decode(decryptString($errorLog->error_code));
+        $errorLog->target_file = base64_decode(decryptString($errorLog->target_file));
+        $errorLog->target_line = base64_decode(decryptString($errorLog->target_line));
+        $errorLog->log_trace = json_decode(decryptString($errorLog->log_trace));
+        return view('vendor.LogManager.errorLogs.show', [
+            'errorLog' => $errorLog
+        ]);
+    }
+
+    public function destroyErrorLog(ErrorLog $log)
+    {
+        $log->delete();
+        return json_encode([
+            'status' => 200
         ]);
     }
 

@@ -68,7 +68,7 @@
                                                     {{$error_log->getKey()}}
                                                 </td>
                                                 <td>
-                                                    @if($error_log->user_id != 0)
+                                                    @if($error_log->user_id != 0 && !is_null($error_log->user))
                                                         <a href="{{ route('users.edit', $error_log->user->id) }}" target="_blank">{{ $error_log->user->id }}</a>
                                                     @else
                                                         نامشخص
@@ -92,7 +92,7 @@
                                                         مشاهده جزئیات
                                                     </a>
                                                     <a href="#" data-id="{{$error_log->id}}"
-                                                       class="btn btn-sm btn-danger m-1 destroy_product">
+                                                       class="btn btn-sm btn-danger m-1 destroy_error_log">
                                                         حذف
                                                     </a>
                                                 </td>
@@ -125,6 +125,66 @@
                     url: baseUrl + '/panel/search_log_users/',
                     dataType: 'json'
                 }
+            });
+            $(".destroy_error_log").on('click', function (e) {
+                e.preventDefault();
+                let id = $(this).data('id');
+                Swal.fire({
+                    title: 'آیا برای حذف اطمینان دارید؟',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    customClass: {
+                        confirmButton: 'btn btn-danger mx-2',
+                        cancelButton: 'btn btn-light mx-2'
+                    },
+                    buttonsStyling: false,
+                    confirmButtonText: 'حذف',
+                    cancelButtonText: 'لغو',
+                    showClass: {
+                        popup: 'animated fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animated fadeOutUp'
+                    }
+                })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire({
+                                title: 'در حال اجرای درخواست',
+                                icon: 'info',
+                                allowEscapeKey: false,
+                                allowOutsideClick: false,
+                                onOpen: () => {
+                                    Swal.showLoading();
+                                }
+                            });
+                            $.ajax({
+                                type: "delete",
+                                url: baseUrl + '/panel/error-log/delete/' + id,
+                                dataType: 'json',
+                                success: function (response) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        text: 'عملیات حذف با موفقیت انجام شد.',
+                                        confirmButtonText:'تایید',
+                                        customClass: {
+                                            confirmButton: 'btn btn-success',
+                                        },
+                                        buttonsStyling: false,
+                                        showClass: {
+                                            popup: 'animated fadeInDown'
+                                        },
+                                        hideClass: {
+                                            popup: 'animated fadeOutUp'
+                                        }
+                                    })
+                                        .then((response) => {
+                                            location.reload();
+                                        });
+                                }
+                            });
+                        }
+                    });
             });
         </script>
     @endslot

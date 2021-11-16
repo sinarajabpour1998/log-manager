@@ -17,7 +17,11 @@ Route::group([
         ->name("log-manager.error.log.index")
         ->middleware(Config::get('log-manager.permissions.error-logs'));
 
-    Route::get("error-log/{id}", "LogController@showErrorLog")
+    Route::get("error-log/{log}", "LogController@showErrorLog")
         ->name("log-manager.error.log.show")
         ->middleware(Config::get('log-manager.permissions.show-error-log'));
+
+    Route::delete("error-log/delete/{log}", "LogController@destroyErrorLog")
+        ->name("log-manager.error.log.destroy")
+        ->middleware(Config::get('log-manager.permissions.delete-error-log'));
 });
