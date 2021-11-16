@@ -54,6 +54,24 @@ class LogRepository
         ];
     }
 
+    public function getSMSLogsWithFilter($request)
+    {
+        $sms_model = config("log-manager.sms_log_model");
+        $show_filter = 'false';
+        $sms_logs = $sms_model::query();
+        if ($request->has('user_id') && $request->user_id != 0){
+            $sms_logs = $sms_logs->whereHas('user', function ($query) use ($request){
+                $query->where('id', '=', $request->user_id);
+            });
+            $show_filter = 'true';
+        }
+        $sms_logs = $sms_logs->orderByDesc('id')->paginate();
+        return (object) [
+            'sms_logs' => $sms_logs,
+            'show_filter' => $show_filter
+        ];
+    }
+
     public function getUsers($request, $type = null)
     {
         $users = array();

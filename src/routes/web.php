@@ -24,4 +24,8 @@ Route::group([
     Route::delete("error-log/delete/{log}", "LogController@destroyErrorLog")
         ->name("log-manager.error.log.destroy")
         ->middleware(Config::get('log-manager.permissions.delete-error-log'));
+
+    Route::get("sms-logs", "SMSLogController@index")
+        ->name("log-manager.sms.log.index")
+        ->middleware(Config::get('log-manager.permissions.sms-logs'));
 });
