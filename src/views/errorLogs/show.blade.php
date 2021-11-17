@@ -35,8 +35,8 @@
                                     @endslot
                                     @slot('tbody')
                                         <tr>
-                                            <td>شماره خطا</td>
-                                            <td class="text-right ltr-direction">
+                                            <td class="col-md-3">شماره خطا</td>
+                                            <td class="col-md-9 text-right ltr-direction">
                                                 {{ digitsToEastern($errorLog->id) }}
                                             </td>
                                         </tr>
@@ -98,6 +98,12 @@
                                             <td>آدرس لاین خطا</td>
                                             <td class="text-right ltr-direction">
                                                 {{ $errorLog->target_line }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>trace</td>
+                                            <td class="text-right ltr-direction">
+                                                {{ $errorLog->error_trace }}
                                             </td>
                                         </tr>
                                     @endslot

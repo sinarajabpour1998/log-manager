@@ -48,10 +48,8 @@ class LogController extends Controller
                 'seen' => 1
             ]);
         }
-        $errorLog->error_message = base64_decode(decryptString($errorLog->error_message));
-        $errorLog->error_code = base64_decode(decryptString($errorLog->error_code));
         $errorLog->target_file = base64_decode(decryptString($errorLog->target_file));
-        $errorLog->target_line = base64_decode(decryptString($errorLog->target_line));
+        $errorLog->error_trace = base64_decode(decryptString($errorLog->error_trace));
         return view('vendor.LogManager.errorLogs.show', [
             'errorLog' => $errorLog
         ]);

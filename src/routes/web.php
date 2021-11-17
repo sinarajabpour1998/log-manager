@@ -13,7 +13,7 @@ Route::group([
     Route::get("search_log_users", "LogController@findUser")
         ->name("log-manager.users");
 
-    Route::get("error-logs/all", "LogController@errorLogIndex")
+    Route::get("error-logs", "LogController@errorLogIndex")
         ->name("log-manager.error.log.index")
         ->middleware(Config::get('log-manager.permissions.error-logs'));
 

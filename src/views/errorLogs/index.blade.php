@@ -54,6 +54,9 @@
                                         <tr>
                                             <th>شناسه</th>
                                             <th>شناسه کاربر</th>
+                                            <th>کد خطا</th>
+                                            <th>لاین</th>
+                                            <th>پیام خطا</th>
                                             <th>آی پی</th>
                                             <th>سیستم عامل</th>
                                             <th>مرورگر</th>
@@ -73,6 +76,15 @@
                                                     @else
                                                         نامشخص
                                                     @endif
+                                                </td>
+                                                <td>
+                                                    {{ $error_log->error_code }}
+                                                </td>
+                                                <td>
+                                                    {{ $error_log->target_line }}
+                                                </td>
+                                                <td>
+                                                    {{ $error_log->error_message }}
                                                 </td>
                                                 <td>
                                                     {{ $error_log->ip }}
@@ -99,7 +111,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="9" class="text-center">موردی برای نمایش وجود ندارد.</td>
+                                                <td colspan="10" class="text-center">موردی برای نمایش وجود ندارد.</td>
                                             </tr>
                                         @endforelse
                                     @endslot

@@ -40,7 +40,7 @@ class LogRepository
     public function getErrorLogsWithFilter($request)
     {
         $show_filter = 'false';
-        $error_logs = ErrorLog::query()->selectRaw("id,user_id,ip,os,browser,seen");
+        $error_logs = ErrorLog::query()->selectRaw("id,user_id,ip,os,browser,error_message,error_code,target_line,seen,created_at");
         if ($request->has('user_id') && $request->user_id != 0){
             $error_logs = $error_logs->whereHas('user', function ($query) use ($request){
                 $query->where('id', '=', $request->user_id);
@@ -147,10 +147,11 @@ class LogRepository
             "ip" => request()->getClientIp(),
             "os" => $user_os,
             "browser" => $user_browser,
-            "error_message" => encryptString(base64_encode($exception->getMessage())),
-            "error_code" => encryptString(base64_encode($exception->getCode())),
+            "error_message" => $exception->getMessage(),
+            "error_code" => $exception->getCode(),
             "target_file" => encryptString(base64_encode($exception->getFile())),
-            "target_line" => encryptString(base64_encode($exception->getLine())),
+            "target_line" => $exception->getLine(),
+            "error_trace" => encryptString(base64_encode(substr($exception->getTraceAsString(), 0, 500))),
             "seen" => 0
         ]);
         return json_encode([
