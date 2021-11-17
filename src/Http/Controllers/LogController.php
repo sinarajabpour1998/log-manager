@@ -18,7 +18,7 @@ class LogController extends Controller
         if (!is_null(request('user_id'))){
             $user = User::query()->findOrFail(request('user_id'));
         }
-        return view('vendor.LogManager.logs.index', [
+        return view('vendor.LogManager.customLogs.index', [
             'logs' => $logs->logs,
             'show_filter' => $logs->show_filter,
             'user' => $user,
