@@ -1,7 +1,7 @@
 <?php
 namespace Sinarajabpour1998\LogManager\Facades;
 
-use Modules\Shop\Facades\BaseFacade;
+use Modules\LogManager\Facades\BaseFacade;
 
 /**
  * @class \Sinarajabpour1998\LogManager\Facades\LogFacade
