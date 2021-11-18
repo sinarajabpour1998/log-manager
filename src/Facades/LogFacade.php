@@ -1,8 +1,6 @@
 <?php
 namespace Sinarajabpour1998\LogManager\Facades;
 
-use Modules\LogManager\Facades\BaseFacade;
-
 /**
  * @class \Sinarajabpour1998\LogManager\Facades\LogFacade
  *
